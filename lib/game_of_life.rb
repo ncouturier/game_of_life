@@ -28,6 +28,7 @@ module GameOfLife
            alive? ? "x" : " "
       end
     end
+    
     attr_reader :width, :cells 
     
     def initialize(width, cells)

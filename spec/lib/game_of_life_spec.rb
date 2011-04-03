@@ -81,7 +81,7 @@ describe GameOfLife::Game do
       @grid = GameOfLife::Grid.new(@width, @cells)
     end
     
-    it 'should be initialized without arguments' do
+    it 'should not be initialized without arguments' do
       lambda { GameOfLife::Grid.new }.should raise_error
     end
     it 'should be initialized with arguments' do
@@ -117,11 +117,34 @@ describe GameOfLife::Game do
         @grid1.should_not == @grid4
         @grid3.should_not == @grid4
     end
+    describe  "cell" do 
+      before(:each) do
+          @grid = GameOfLife::Grid.new(3, [" x "," x "," x "])
+      end
+      it "should be possible to drop a cell" do
+         lambda {GameOfLife::Grid::Cell.new(@grid,1,1,1)}.should_not raise_error
+      end
+      describe  "cell behaviour" do
+        before(:each) do
+           @cell = GameOfLife::Grid::Cell.new(@grid,1,1,1)
+        end
+        it 'should respond to to_s' do
+            @cell.should respond_to(:to_s)
+        end
+        it "should be giving an x" do
+             @cell.to_s.should == "x" 
+        end
+        it 'should respond to alive?' do
+              @cell.should respond_to(:alive?)
+        end
+        it "should be giving 1" do
+               @cell.alive?.should == true 
+        end
+      end
+      it "should be possible to detect if a cell can live" do
+      end
+    end     
     
-    it "should be possible to drop a cell" do
-    end
-    it "should be possible to detect if a cell can live" do
-    end
   end
 
 end
