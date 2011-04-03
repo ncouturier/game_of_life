@@ -93,6 +93,31 @@ describe GameOfLife::Game do
     it 'height should be 36' do
       @grid.height.should == 36
     end
+    it "should respond to to_s" do
+      @grid.should respond_to(:to_s)
+    end
+    it "should have coherent sizes and content" do
+        @grid1 = GameOfLife::Grid.new(3, [" x "," x "," x "])
+        @cells = " x  x  x "
+        @grid2 = GameOfLife::Grid.new(3, @cells)
+        @grid1.height.should == 3
+        @grid1.width.should == 3
+        @grid2.height.should == 3
+        @grid2.width.should == 3
+        @grid2.to_s.should == @grid1.to_s
+    end
+    it "should have coherent sizes and content for different grid" do
+        @grid1 = GameOfLife::Grid.new(3, [" x "," x "," x "])
+        @grid2 = GameOfLife::Grid.new(3, [" x "," x "," x "])
+        @grid3 = GameOfLife::Grid.new(4, [" x "," x "," x "," x "])
+        @grid4 = GameOfLife::Grid.new(4, ["   "," x "," x "," x "])
+        
+        #@grid1.should == @grid2
+        @grid1.should_not == @grid3
+        @grid1.should_not == @grid4
+        @grid3.should_not == @grid4
+    end
+    
     it "should be possible to drop a cell" do
     end
     it "should be possible to detect if a cell can live" do
