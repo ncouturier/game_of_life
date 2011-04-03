@@ -4,13 +4,27 @@
 #
 module GameOfLife
   class Game
-    def initialize(*starting_board)
-      @starting_board=starting_board
+    def initialize(*starting_grid)
+      @starting_grid=starting_grid
     end
-    def board
-      @starting_board.join 
+    def grid
+      @starting_grid.join 
     end
     def run(*time)
     end
   end
+  class Grid
+    attr_reader :width, :cells 
+    
+    def initialize(width, cells)
+      @width = width
+      @cells = cells       
+    end
+    def height
+      @cells.size
+    end
+    
+  end
+  
+  
 end
