@@ -27,6 +27,12 @@ module GameOfLife
       def to_s
            alive? ? "x" : " "
       end
+      def die
+        #TODO
+      end
+      def born
+        #TODO
+      end
     end
     
     attr_reader :width, :cells 
@@ -35,7 +41,8 @@ module GameOfLife
       @width = width
       @cells = cells  if cells.class == Array
       r=/[\sx]{#{@width}}/
-      @cells= cells.scan(r).flatten if cells.class == String    
+      @cells= cells.scan(r).flatten if cells.class == String  
+      @height = height  
     end
     
     def height
@@ -44,6 +51,10 @@ module GameOfLife
     def to_s
       @cells.join
     end
+    def [](x, y)
+        @cells[y % @height ][x % @width]
+    end
+    
         
   end
   

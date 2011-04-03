@@ -140,6 +140,21 @@ describe GameOfLife::Game do
         it "should be giving 1" do
                @cell.alive?.should == true 
         end
+        it 'should respond to die' do
+            @cell.should respond_to(:die)
+        end
+        it 'should respond to born' do
+            @cell.should respond_to(:born)
+        end
+        
+        it "can be returned by a grid" do
+          @grid.should respond_to(:[])
+          @grid[0,0].should == " "
+          @grid[1,1].should == "x"
+          @grid[0,1].should == " "
+          @grid[1,0].should == "x"
+        end
+        
       end
       it "should be possible to detect if a cell can live" do
       end
