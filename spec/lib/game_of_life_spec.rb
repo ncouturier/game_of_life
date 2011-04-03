@@ -154,6 +154,9 @@ describe GameOfLife::Game do
           @grid[0,1].should == " "
           @grid[1,0].should == "x"
         end
+        it 'should respond to alive_neighbours' do
+          @cell.should respond_to(:alive_neighbours)
+        end
         
       end
       it "should be possible to detect if a cell can live" do
