@@ -117,6 +117,10 @@ describe GameOfLife::Game do
         @grid1.should_not == @grid4
         @grid3.should_not == @grid4
     end
+    it "should be run" do
+      @grid.should respond_to(:run)
+    end
+    
     describe  "cell" do 
       before(:each) do
           @grid = GameOfLife::Grid.new(3, [" x "," x "," x "])
@@ -157,7 +161,11 @@ describe GameOfLife::Game do
         it 'should respond to alive_neighbours' do
           @cell.should respond_to(:alive_neighbours)
         end
-        
+        it 'should respond to alive_neighbours' do
+          @cell.alive_neighbours.should == 2
+          @cell = GameOfLife::Grid::Cell.new(@grid,0,1,0)
+          @cell.alive_neighbours.should == 3
+        end
       end
       it "should be possible to detect if a cell can live" do
       end

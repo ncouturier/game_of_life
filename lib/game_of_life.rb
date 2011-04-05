@@ -28,16 +28,14 @@ module GameOfLife
            alive? ? "x" : " "
       end
       def die
-        #TODO
       end
       def born
-        #TODO
       end
       def alive_neighbours
-      #   [[-1, -1], [0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1,0]].
-      #   inject(0) do |sum, cell|
-      #     sum += @grid[@x + cell[0], @y + cell[1]]
-      #   end
+        [[-1, -1], [0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1,0]].
+         inject(0) do |sum, cell|
+           sum += @grid[@x + cell[0], @y + cell[1]]=="x"?1:0
+         end
       end
       
     end
@@ -61,9 +59,7 @@ module GameOfLife
     def [](x, y)
         @cells[y % @height ][x % @width]
     end
-    
-        
+    def run
+    end
   end
-  
-  
 end
