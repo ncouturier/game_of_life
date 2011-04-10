@@ -9,9 +9,9 @@ module GameOfLife
     end
     def grid
       if @grid.nil?
-        @starting_grid
+          @starting_grid
       else
-        @grid.cells.join("\n").gsub(/[0]/," ").gsub(/[1]/,"*")
+          @grid.cells.collect{|l|l.join}.join("\n").gsub(/[0]/," ").gsub(/[1]/,"*")
       end
     end
     def grid=(starting_grid)
