@@ -135,13 +135,13 @@ describe GameOfLife::Game do
         it 'should respond to to_s' do
             @cell.should respond_to(:to_s)
         end
-        it "should be giving an x" do
-             @cell.to_s.should == "x" 
+        it "should be giving a 1" do
+             @cell.to_s.should == 1 
         end
         it 'should respond to alive?' do
               @cell.should respond_to(:alive?)
         end
-        it "should be giving 1" do
+        it "should be alive" do
                @cell.alive?.should == true 
         end
         it 'should respond to die' do
@@ -153,10 +153,10 @@ describe GameOfLife::Game do
         
         it "can be returned by a grid" do
           @grid.should respond_to(:[])
-          @grid[0,0].should == " "
-          @grid[1,1].should == "x"
-          @grid[0,1].should == " "
-          @grid[1,0].should == "x"
+          @grid[0,0].should == 0
+          @grid[1,1].should == 1
+          @grid[0,1].should == 0
+          @grid[1,0].should == 1
         end
         it 'should respond to alive_neighbours' do
           @cell.should respond_to(:alive_neighbours)

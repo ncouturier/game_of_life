@@ -5,15 +5,19 @@
 module GameOfLife
   class Game
     def initialize(*starting_grid)
-      @starting_grid=starting_grid
+      @grid=starting_grid
     end
     def grid
-      @starting_grid.join 
+      @grid.join("\n").gsub(/[0]/," ").gsub(/[1]/,"*")
+    end
+    def grid= (starting_grid)
+      @grid=starting_grid
     end
     def run(*time)
     end
   end
   class Grid
+    
     class Cell
       attr_reader :x, :y
       def initialize(grid, x, y, status)
@@ -25,7 +29,7 @@ module GameOfLife
             @status == 1
       end
       def to_s
-           alive? ? "x" : " "
+        alive? ? 1 : 0
       end
       def die
       end
@@ -34,10 +38,9 @@ module GameOfLife
       def alive_neighbours
         [[-1, -1], [0, -1], [1, -1], [1, 0], [1, 1], [0, 1], [-1, 1], [-1,0]].
          inject(0) do |sum, cell|
-           sum += @grid[@x + cell[0], @y + cell[1]]=="x"?1:0
+           sum += @grid[@x + cell[0], @y + cell[1]]
          end
       end
-      
     end
     
     attr_reader :width, :cells 
@@ -47,6 +50,13 @@ module GameOfLife
       @cells = cells  if cells.class == Array
       r=/[\sx]{#{@width}}/
       @cells= cells.scan(r).flatten if cells.class == String  
+      cells=[]
+      @cells.each do |y|
+        temp=[]
+        y.each_char{|x| temp << ((x=="x")?1:0)}
+        cells << temp
+      end
+      @cells = cells
       @height = height  
     end
     
