@@ -60,14 +60,7 @@ describe GameOfLife::Game do
       @game.grid == @after_five_turn
     end
     
-    it 'should keep size' do
-    end
-    it 'lonely cell should die' do
-    end
-    it 'a cell with at least 2 neighbours should live' do
-    end
-    it "a cell should be given birth if at least 3 neighbours" do
-    end
+    
     
     describe "misc" do
       it 'should print board' do
@@ -104,7 +97,7 @@ describe GameOfLife::Game do
         @grid1.width.should == 3
         @grid2.height.should == 3
         @grid2.width.should == 3
-        @grid2.to_s.should == @grid1.to_s
+        @grid2.cells.should == @grid1.cells
     end
     it "should have coherent sizes and content for different grid" do
         @grid1 = GameOfLife::Grid.new(3, [" x "," x "," x "])
@@ -112,13 +105,37 @@ describe GameOfLife::Game do
         @grid3 = GameOfLife::Grid.new(4, [" x "," x "," x "," x "])
         @grid4 = GameOfLife::Grid.new(4, ["   "," x "," x "," x "])
         
-        #@grid1.should == @grid2
-        @grid1.should_not == @grid3
-        @grid1.should_not == @grid4
-        @grid3.should_not == @grid4
+        @grid1.cells.should == @grid2.cells
+        @grid1.cells.should_not == @grid3.cells
+        @grid1.cells.should_not == @grid4.cells
+        @grid3.cells.should_not == @grid4.cells
     end
     it "should be run" do
       @grid.should respond_to(:run)
+    end
+    it 'should keep size' do
+      @grid1= @grid.run
+      @grid1.size.should == @grid.height
+    end
+    it 'lonely cell should die' do
+       @grid = GameOfLife::Grid.new(3, ["   "," x ","   "])
+       @grid.run
+       @grid[1,1].should == 0
+    end
+    it 'a cell with at least 2 neighbours should live' do
+        @grid = GameOfLife::Grid.new(3, [" x "," xx","   "])
+        @grid.run
+        @grid[1,0].should == 1
+    end
+    it "a cell should be given birth if at least 3 neighbours" do
+       @grid = GameOfLife::Grid.new(3, [" x "," xx","   "])
+       @grid.run
+       @grid[2,0].should == 1
+    end
+    it "a cell should die if at least 4 neighbours" do
+         @grid = GameOfLife::Grid.new(3, [" xx","xxx","   "])
+         @grid.run
+         @grid[1,1].should == 0
     end
     
     describe  "cell" do 
@@ -166,8 +183,6 @@ describe GameOfLife::Game do
           @cell = GameOfLife::Grid::Cell.new(@grid,0,1,0)
           @cell.alive_neighbours.should == 3
         end
-      end
-      it "should be possible to detect if a cell can live" do
       end
     end     
     
